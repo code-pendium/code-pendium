@@ -7,6 +7,14 @@
         <v-card>
           <v-card-title>
             <span class="display-1"><kbd>{{name}}</kbd></span>
+            <v-spacer></v-spacer>
+            <v-chip 
+              class="ml-1"
+              v-bind:key="t"
+              v-for="t in tags"
+            >
+              {{t}}
+            </v-chip>
           </v-card-title>
           <v-card-subtitle>
             <span class="title">{{title}}</span>
@@ -30,9 +38,6 @@
           <v-card-text class="body-1">
             <span>{{levelStatus}}</span>
           </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -118,7 +123,7 @@
           </v-btn>
         </v-card-title>
         <v-card-subtitle>
-          <span class="subtitle-1">{{name}} | {{title}}</span>
+          <span class="subtitle-1"><kbd>{{name}}</kbd> {{title}}</span>
         </v-card-subtitle>
         <v-divider></v-divider>
 
@@ -163,9 +168,10 @@ export default {
   props: {
     name: String,
     title: String,
+    tags: Array,
     difficulty: Number,
+
     description: String,
-    
     inputFormat: String,
     outputFormat: String,
 
@@ -269,8 +275,7 @@ export default {
       minimap: {
         enabled: false
       },
-      readOnly: true,
-      wordWrap: "on"
+      readOnly: true
     })
 
     this.updateStatus()
@@ -310,7 +315,10 @@ export default {
           callback("Timed Out", n)
           console.log("Killed worker, timed out") // eslint-disable-line
         })
-      }, 5000, worker, objectURL, callback, n) 
+        .catch(() => {
+          // worker has been cleaned
+        })
+      }, 10000, worker, objectURL, callback, n) 
     },
 
     run (n) {
@@ -353,8 +361,8 @@ export default {
       }
 
       var input = this.testInputs[n]
-      var args = JSON.stringify(input).replace(/[[\]]/g, "")
-      var inputStr = `${this.inputFunction}(${args})`
+      var args = JSON.stringify(input)
+      var inputStr = `${this.inputFunction}.apply(null, ${args})`
       var code = this.code.getValue()
       var finalCode = code + inputStr;
 
@@ -385,6 +393,8 @@ export default {
     },
 
     toggleLoading (state) {
+      this.code.updateOptions({readOnly: state})
+      this.input.updateOptions({readOnly: state})
       this.running = state
       if(state)
         this.$refs.topProgress.start()

@@ -32,14 +32,96 @@
           </span>
         </v-row>
       </v-col>
+      <v-col cols="12">
+        <v-divider></v-divider>
+      </v-col>
+      <v-col cols="12">
+        <v-row justify="center">
+          <v-card>
+            <v-card-title>
+            </v-card-title>
+            <div id="editor" class="home-editor"></div>
+          </v-card>
+        </v-row>
+      </v-col>
     </v-row>
+
+    <v-snackbar
+      v-model="helloWorld"
+      color="primary"
+    >
+      Hello World!
+      <v-btn text @click.native="helloWorld = false">Close</v-btn>
+    </v-snackbar>
+
   </v-container>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      imgLoaded: false
+import * as monaco from "monaco-editor"
+
+const scriptSample = 
+`// Self-typing code
+function typeChar(n) {
+  if(n == scriptSample.length)
+    return
+  var nextChar = scriptSample.charAt(n)
+  this.editor.setValue(this.editor.getValue() + nextChar)
+  setTimeout((n, callback) => {
+    callback(n)
+  }, 100, n + 1, this.typeChar)
+}
+this.typeChar(0)
+
+// Hello World
+this.snackbar.show("Hello World!")`
+
+export default {
+  data: () => ({
+    imgLoaded: false,
+    editor: null,
+    helloWorld: false
+  }),
+
+  mounted () {
+    this.editor = monaco.editor.create(document.getElementById("editor"), {
+      language: "javascript",
+      theme: "vs-dark",
+      tabSize: 2,
+      automaticLayout: true,
+      readOnly: true,
+      minimap: {
+        enabled: false
+      },
+      scrollbar: {
+        horizontal: "hidden",
+        vertical: "hidden"
+      }
     })
+
+    this.typeChar(0)
+  },
+
+  methods: {
+    typeChar(n) {
+      if(n == scriptSample.length)
+      {
+        this.helloWorld = true
+        return
+      }
+      var nextChar = scriptSample.charAt(n)
+      this.editor.setValue(this.editor.getValue() + nextChar)
+      setTimeout((n, callback) => {
+        callback(n)
+      }, 100, n + 1, this.typeChar)
+    }
   }
+}
 </script>
+
+<style>
+.home-editor {
+  width: 40rem;
+  height: 20rem;
+}
+</style>

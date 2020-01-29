@@ -6,10 +6,10 @@
 
 <script>
 import Level from "../../components/Level"
-import random from "random"
 
 const name = "C-01",
 title = "Introduction",
+tags = ["Basic", "Arithmetic"],
 difficulty = 1,
 
 description = 
@@ -30,16 +30,15 @@ The Input Format section focuses on the general syntax for the input of each pro
 It will describe the arguments necessary for the input function in detail, including constraints if there are any. 
 As mentioned earlier, you may write your own inputs to test out your code. You may do this in the Run Input section. 
 A very important rule within this section is that <b>inputs are read line by line</b>. 
-This means every new line will be treated as another input. Inputs that take up more than one line will not work. 
-Do also note that word wrapping is enabled in this section, which will wrap lines longer than the width of the editor. 
-Wrapped text will not be counted as a new line. The line count on the right side can be a helpful reference.
+This means every new line will be treated as another input. Inputs that take up more than one line will not work.
 </p>
 <p>
 Now for the Output Format. It explains essentially the same things as the Input Format, but for the output instead. 
 This section details what exactly your code should return. 
 It is important to strictly follow the instructions stated in here, as it can affect your test results on submission. 
 The Run Output section displays the output of your code, based on each input stated in the Run Input section. 
-If you have multiple inputs then this section will output for each corresponding line. Take note of the line count in here as well.
+If you have multiple inputs then this section will output for each corresponding line. 
+But do take note that some problems might have an output comprising of multiple lines. Consider this when having multiple inputs.
 </p>
 <p>
 And finally, after all of that, here are the instructions for finishing this level!
@@ -71,14 +70,7 @@ Example Output: <kbd>3</kbd>
 
 defaultCode = 
 `function solve(a, b, type) {
-  if(type == "add") 
-    return a + b
-  if(type == "subtract") 
-    return a - b
-  if(type == "multiply") 
-    return a * b
-  if(type == "divide") 
-    return a / b
+  // Your code here
 }`,
 
 defaultInput = 
@@ -103,6 +95,12 @@ validator = (a, b) => {
  return a == b
 }
 
+import random from "random"
+
+function rnd() {
+  return random.int(-100, 100)
+}
+
 export default {
   components: {
     Level
@@ -112,9 +110,10 @@ export default {
     properties: {
       name,
       title,
+      tags,
       difficulty,
-      description,
 
+      description,
       inputFormat,
       outputFormat,
 
@@ -132,10 +131,11 @@ export default {
     var operations = ["add", "subtract", "multiply", "divide"]
     for(var i in operations) {
       var op = operations[i]
-      var a = random.int(-100, 100)
-      var b = random.int(-100, 100)
+      var a = rnd(), b = rnd()
       this.properties.testInputs[i] = [a, b, op]
     }
+
+    console.log(this.properties.testInputs) // eslint-disable-line
   }
 }
 </script>
