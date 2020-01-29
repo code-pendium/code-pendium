@@ -1,4 +1,4 @@
-# coding-game
+# code-pendium
 
 ## Project setup
 ```
