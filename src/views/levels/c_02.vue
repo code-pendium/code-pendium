@@ -25,7 +25,7 @@ inputFormat =
 `<p>
 The input function <kbd>square()</kbd> takes 2 arguments: <b>size</b> and <b>filled</b>. 
 The argument <b>size</b> is a positive integer. 
-The argument <b>type</b> is a boolean which determines if the square should be filled or not. 
+The argument <b>filled</b> is a boolean which determines if the square should be filled or not. 
 If <b>filled</b> is false, the sqaure should only have the edges.
 </p>
 <p>
@@ -50,12 +50,12 @@ Example Output:
 </p>`,
 
 defaultCode = 
-`function square(size, type) {
+`function square(size, filled) {
   // Your code here
 }`,
 
 defaultInput = 
-`square(4, "filled")`,
+`square(4, false)`,
 
 testInputs = [null, null],
 
