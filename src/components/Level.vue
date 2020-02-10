@@ -279,6 +279,9 @@ export default {
     })
 
     this.updateStatus()
+
+    if(process.env.NODE_ENV == "development")
+      console.log(this.testInputs) // eslint-disable-line
   },
 
   methods: {
@@ -313,7 +316,7 @@ export default {
           var URL = window.URL || window.webkitURL
           URL.revokeObjectURL(objectURL)
           callback("Timed Out", n)
-          console.log("Killed worker, timed out") // eslint-disable-line
+          //console.log("Killed worker, timed out") // eslint-disable-line
         })
         .catch(() => {
           // worker has been cleaned
@@ -408,7 +411,7 @@ export default {
       var status = ""
       if(!passed)
         passed = 0
-      if(passed == tests)
+      if(passed == tests && tests > 0)
         status = "Completed"
       else
         status = `${passed}/${tests} Tests Passed`

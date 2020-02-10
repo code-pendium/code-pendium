@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
+
       <v-col cols="12">
         <v-row justify="center">
           <v-img src="../assets/logo.png" max-height="100" max-width="100" @load="imgLoaded = true">
@@ -9,6 +10,7 @@
           </v-img>
         </v-row>
       </v-col>
+
       <v-col cols="12">
         <v-row justify="center">
           <span>
@@ -25,6 +27,7 @@
           </span>
         </v-row>
       </v-col>
+
       <v-col cols="12">
         <v-row justify="center">
           <span class="title font-weight-light">
@@ -32,9 +35,11 @@
           </span>
         </v-row>
       </v-col>
+
       <v-col cols="12">
         <v-divider></v-divider>
       </v-col>
+
       <v-col cols="12">
         <v-row justify="center">
           <v-card>
@@ -44,16 +49,14 @@
           </v-card>
         </v-row>
       </v-col>
+
+      <v-col cols="12">
+        <v-row justify="center">
+          <v-btn tile color="primary" to="/c-01">Get Started</v-btn>
+        </v-row>
+      </v-col>
+
     </v-row>
-
-    <v-snackbar
-      v-model="helloWorld"
-      color="primary"
-    >
-      Hello World!
-      <v-btn text @click.native="helloWorld = false">Close</v-btn>
-    </v-snackbar>
-
   </v-container>
 </template>
 
@@ -71,16 +74,12 @@ function typeChar(n) {
     callback(n)
   }, 100, n + 1, this.typeChar)
 }
-this.typeChar(0)
-
-// Hello World
-this.snackbar.show("Hello World!")`
+this.typeChar(0)`
 
 export default {
   data: () => ({
     imgLoaded: false,
     editor: null,
-    helloWorld: false
   }),
 
   mounted () {
@@ -105,10 +104,7 @@ export default {
   methods: {
     typeChar(n) {
       if(n == scriptSample.length)
-      {
-        this.helloWorld = true
         return
-      }
       var nextChar = scriptSample.charAt(n)
       this.editor.setValue(this.editor.getValue() + nextChar)
       setTimeout((n, callback) => {
@@ -122,6 +118,6 @@ export default {
 <style>
 .home-editor {
   width: 40rem;
-  height: 20rem;
+  height: 15rem;
 }
 </style>

@@ -129,8 +129,6 @@ export default {
       let n = rnd()
       this.properties.testInputs[2][1][i] = [n, op]
     }
-
-    console.log(this.properties.testInputs) // eslint-disable-line
   }
 }
 </script>

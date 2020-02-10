@@ -7,6 +7,7 @@ import About from "../views/About"
 import c_01 from "../views/levels/c_01"
 import c_01a from "../views/levels/c_01a"
 import c_02 from "../views/levels/c_02"
+import c_03 from "../views/levels/c_03"
 
 Vue.use(Router)
 
@@ -49,6 +50,14 @@ export default new Router({
       slug: "c_02",
       type: "level",
       component: c_02
+    },
+    {
+      path: "/c-03",
+      name: "C-03",
+      title: "Is it a Palindrome?",
+      slug: "c_03",
+      type: "level",
+      component: c_03
     },
     { path: "*", redirect: "/home" }
   ]
