@@ -31,7 +31,7 @@ The conditions to be followed are:
 <ul>
 <li>If <kbd>food</kbd> is <kbd>Apple</kbd>, it should return <kbd>Pie!</kbd>.</li> 
 <li>If <kbd>food</kbd> is <kbd>Orange</kbd>, it should return <kbd>Juice!</kbd>.</li>
-<li>If it is neither of those, it should simply return <kbd>false</kbd>.</li>
+<li>If it is neither of those, it should simply return <kbd>false</kbd> (as a boolean, not a string).</li>
 </ul>`,
 
 inputFormat = 
@@ -75,9 +75,9 @@ defaultCode =
 defaultInput = 
 `match("Apple")`,
 
-testInputs = ["Apple", "Orange", null],
+testInputs = [["Apple"], ["Orange"], null],
 
-inputFunction = `square`,
+inputFunction = `match`,
 
 solution = (food) => {
   if(food == "Apple") {
@@ -90,7 +90,7 @@ solution = (food) => {
 },
 
 validator = (a, b) => {
- return a == b
+  return a == b
 }
 
 import random from "random"
