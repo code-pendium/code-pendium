@@ -16,9 +16,10 @@ description =
 `<p>
 Welcome to Codependium! This level aims to walk you through the basics of Codependium's level system, structure, and workflow. 
 In general, each level revolves around a problem that requires some code to be executed using a set of inputs. 
-You may choose to test your code by running it with the level's default testing input or by creating your own one. 
-Once you are satisfied with your code, you may choose to submit it. 
-Once submitted, your code will be tested against multiple different inputs. 
+To finish a level, you must submit a program to fulfill the needs of the problem given. This is done by writing code. 
+Before submitting, you may choose to test your code by running it with the level's default testing input, or by setting your own one. 
+Once you are satisfied with the results of your code, you may choose to submit it. 
+Submitting will take your code and test it against multiple different test inputs. 
 If your code passes all these tests, you complete the level!
 Every level grants you a certain amount of stars <b>★</b> after completion, which is based on the level's difficulty. 
 These stars may range from <b>1★</b> being the lowest and easiest to <b>10★</b> being the highest and most difficult.
@@ -30,12 +31,12 @@ The Input Format section focuses on the general syntax for the input of each pro
 It will describe the arguments necessary for the input function in detail, including constraints if there are any. 
 As mentioned earlier, you may write your own inputs to test out your code. You may do this in the Run Input section. 
 A very important rule within this section is that <b>inputs are read line by line</b>. 
-This means every new line will be treated as another input. Inputs that take up more than one line will not work.
+This means that every new line will be treated as another input. Inputs that take up more than one line will not work.
 </p>
 <p>
-Now for the Output Format. It explains essentially the same things as the Input Format, but for the output instead. 
-This section details what exactly your code should return. 
-It is important to strictly follow the instructions stated in here, as it can affect your test results on submission. 
+Now for the Output Format. It essentially explains the same things as the Input Format, but for the output instead. 
+This section details how and what exactly your code should return. 
+It is important to strictly follow the instructions stated in here, as it can affect your test results upon submission. 
 The Run Output section displays the output of your code, based on each input stated in the Run Input section. 
 If you have multiple inputs then this section will output for each corresponding line. 
 But do take note that some problems might have an output comprising of multiple lines. Consider this when having multiple inputs.
@@ -72,7 +73,7 @@ defaultCode =
   // This is a comment, it will not be read by the compiler
   // To finish this level, simply remove the double slash (//) on the next line
   // return something
-  // The line above is a return statement.
+  // The line above is a return statement
   // It simply returns the argument "something", which is passed through the function
 }`,
 
