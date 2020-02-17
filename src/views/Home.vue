@@ -52,7 +52,7 @@
 
       <v-col cols="12">
         <v-row justify="center">
-          <v-btn tile color="primary" to="/c-01">Get Started</v-btn>
+          <v-btn tile color="primary" to="/c-00">Get Started</v-btn>
         </v-row>
       </v-col>
 
@@ -64,8 +64,7 @@
 import * as monaco from "monaco-editor"
 
 const scriptSample = 
-`// Self-typing code
-function typeChar(n) {
+`function typeChar(n) {
   if(n == scriptSample.length)
     return
   var nextChar = scriptSample.charAt(n)

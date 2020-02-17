@@ -11,7 +11,7 @@ const vuexLocal = new VuexPersist({
 
 export default new Vuex.Store({
   state: {
-    m: "IF YOU ARE SEEING THIS YOU ARE CHEATING. DONT DO IT.",
+    m: "If you can read this, you are cheating! Don't do it ;-;",
     version: "1.0",
     levelData: {}
   },

@@ -8,76 +8,85 @@
 import Level from "../../components/Level"
 
 const name = "C-02",
-title = "Square",
-tags = ["Basic", "Looping", "String"],
-difficulty = 3,
+title = "Conditions",
+tags = ["Basic"],
+difficulty = 1,
 
 description = 
 `<p>
-You must write a program to output a square based on a given integer. 
-The square will be made out of white square <kbd>⬜</kbd> characters, and will be outputted as a string. 
-The input will also have an option of whether to have the square filled or outlined. 
-A filled square will fill in the insides, while an outlined square will only have the edges. 
-The insides of an outlined sqaure will be replaced with black square <kbd>⬛</kbd> characters instead.
-</p>`,
+Conditions are a core part of every programming language. 
+Conditional statements are used to perform different actions depending on different conditions. 
+In this problem, we will be using <kbd>if</kbd>, <kbd>else</kbd>, and <kbd>else if</kbd> statements. 
+</p>
+<ul>
+<li><kbd>if</kbd> is used to specify a block of code to be executed, if the specified condition is true.</li>
+<li><kbd>else</kbd> is used  to specify a block of code to be executed, if the first condition is false.</li>
+<li><kbd>else if</kbd> is used to specify a new condition to test, if the first condition is false.</li>
+</ul>
+<br>
+<p>
+In this problem, you will be making a function that returns something based on the given input <kbd>food</kbd>. 
+The conditions to be followed are:
+</p>
+<ul>
+<li>If <kbd>food</kbd> is <kbd>Apple</kbd>, it should return <kbd>Pie!</kbd>.</li> 
+<li>If <kbd>food</kbd> is <kbd>Orange</kbd>, it should return <kbd>Juice!</kbd>.</li>
+<li>If it is neither of those, it should simply return <kbd>false</kbd>.</li>
+</ul>`,
 
 inputFormat = 
 `<p>
-The input function <kbd>square()</kbd> takes 2 arguments: <b>size</b> and <b>filled</b>. 
-The argument <b>size</b> is a positive integer. 
-The argument <b>filled</b> is a boolean which determines if the square should be filled or not. 
-If <b>filled</b> is false, the sqaure should only have the edges.
+The input function <kbd>match()</kbd> takes only 1 arguments: <kbd>food</kbd>. This argument is a string.
 </p>
 <p>
-Example Input: <kbd>square(4, false)</kbd>
+Example Input: <kbd>match("Apple")</kbd>
 </p>`,
 
 outputFormat =
 `<p>
-The output is a string that that forms a square.
+The output is also a string, except when all the conditions fail. In that casem return <kbd>false</kbd>.
 </p>
 <p>
-Example Output:
+Example Output: <kbd>Pie!</kbd>
+</p>`,
+
+hint = 
+`<p>
+Every condition must contain a corresponding <kbd>return</kbd> statement (instructed in description). 
+Do also note that strings have to be encased in quotes <kbd>'</kbd> or double quotes <kbd>"</kbd>. 
 </p>
 <p>
-<kbd>⬜⬜⬜⬜ 
- ⬜⬛⬛⬜ 
- ⬜⬛⬛⬜ 
- ⬜⬜⬜⬜</kbd>
-<p>
-(Some of the lines here have been shifted to align accordingly)
-</p>
+Example: <kbd>return "Foo"</kbd>
 </p>`,
 
 defaultCode = 
-`function square(size, filled) {
-  // Your code here
+`function match(food) {
+  // The conditions have already been given to you
+  // Just fill in the required return statements
+  if(food == "Apple") {
+    
+  } else if(food == "Orange") {
+
+  } else {
+
+  }
 }`,
 
 defaultInput = 
-`square(4, false)`,
+`match("Apple")`,
 
-testInputs = [null, null],
+testInputs = ["Apple", "Orange", null],
 
 inputFunction = `square`,
 
-solution = (size, filled) => {
-  var squareStr = ""
-  for(var i = 1; i <= size; i++) {
-    var row = ""
-    for(var j = 1; j <= size; j++) {
-      if(!filled) {
-        if(i > 1 && i < size && j > 1 && j < size) {
-          row += "⬛"
-          continue
-        }
-      }
-      row += "⬜"
-    }
-    row += i == size ? "" : "\n"
-    squareStr += row
+solution = (food) => {
+  if(food == "Apple") {
+    return "Pie!"
+  } else if(food == "Orange") {
+    return "Juice!"
+  } else {
+    return false
   }
-  return squareStr
 },
 
 validator = (a, b) => {
@@ -101,6 +110,7 @@ export default {
       description,
       inputFormat,
       outputFormat,
+      hint,
 
       defaultCode, 
       defaultInput,
@@ -113,8 +123,7 @@ export default {
   }),
 
   mounted () {
-    this.properties.testInputs[0] = [random.int(10, 100), true]
-    this.properties.testInputs[1] = [random.int(10, 100), false]
+    this.properties.testInputs[2] = [random.int(-100, 100)]
   }
 }
 </script>

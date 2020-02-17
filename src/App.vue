@@ -18,7 +18,7 @@
               <v-icon 
                 :key="updateKey"
                 v-if="($store.state.levelData[r.slug] && $store.state.levelData[r.slug].completed)">
-                fas fa-check
+                mdi-check
               </v-icon>
             </v-list-item-action>
           </v-list-item>
@@ -79,14 +79,16 @@ export default {
 
   watch: {
     $store: function() {
-      console.log("Store Changed") // eslint-disable-line
+      console.log("Store Changed")
     }
   },
 
   mounted () {
     setInterval(this.update, 1000)
     if(process.env.NODE_ENV != "development")
-      console.log("%cIf you can read this, you are cheating! Don't do it ;-;", "color: red; font-size: medium; background-color:#290000;") // eslint-disable-line
+      console.log(
+        "%cIf you can read this, you are cheating! Don't do it ;-;", 
+        "color: red; font-size: medium; background-color:#290000;")
   },
 
   methods: {
@@ -98,6 +100,9 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #303030;
+}
 .custom.char.typed {
   color: white;
 }

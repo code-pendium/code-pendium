@@ -73,6 +73,14 @@
         <v-card>
           <v-card-title class="pa-3">
             <span class="subtitle-1">Code Editor</span>
+            <v-tooltip right>
+              <template v-slot:activator="{on}">
+                <v-btn v-on="on" icon @click="hintDialog = true" :disabled="running">
+                  <v-icon>help</v-icon>
+                </v-btn>
+              </template>
+              <span>Hint</span>
+            </v-tooltip>
             <v-spacer></v-spacer>
             <v-btn tile @click="run(0)" :loading="running" :disabled="running">Run</v-btn>
             <v-btn tile @click="submit(0)" :disabled="running">Submit</v-btn>
@@ -107,6 +115,31 @@
         </v-container>
       </v-col>
     </v-row>
+
+    <v-dialog
+      v-model="hintDialog"
+      persistent
+      max-width="500px"
+      transition="dialog-transition"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="title">
+            <v-icon>mdi-help-circle</v-icon>
+            Hint
+            </span>
+          <v-spacer></v-spacer>
+          <v-btn text icon :disabled="submitting" @click="hintDialog = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-subtitle></v-card-subtitle>
+        <v-card-text class="body-2">
+          <span v-html="hint"></span>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
     <v-dialog
       v-model="submitDialog"
@@ -162,7 +195,7 @@
 </template>
 
 <script>
-import * as monaco from "monaco-editor"
+import { editor } from "monaco-editor"
 
 export default {
   props: {
@@ -174,6 +207,7 @@ export default {
     description: String,
     inputFormat: String,
     outputFormat: String,
+    hint: String,
 
     defaultCode: String,
     defaultInput: String,
@@ -191,6 +225,7 @@ export default {
     inputUpdateTime: 0,
     output: null,
 
+    hintDialog: false,
     running: false,
     submitting: false,
     submitDialog: false,
@@ -235,7 +270,7 @@ export default {
   },
 
   mounted () {
-    this.code = monaco.editor.create(document.getElementById("code"), {
+    this.code = editor.create(document.getElementById("code"), {
       language: "javascript",
       theme: "vs-dark",
       tabSize: 2,
@@ -252,7 +287,7 @@ export default {
       this.updateCode()
     })
 
-    this.input = monaco.editor.create(document.getElementById("input"), {
+    this.input = editor.create(document.getElementById("input"), {
       language: "javascript",
       theme: "vs-dark",
       automaticLayout: true,
@@ -269,7 +304,7 @@ export default {
       this.updateInput()
     })
 
-    this.output = monaco.editor.create(document.getElementById("output"), {
+    this.output = editor.create(document.getElementById("output"), {
       theme: "vs-dark",
       automaticLayout: true,
       minimap: {
@@ -281,7 +316,7 @@ export default {
     this.updateStatus()
 
     if(process.env.NODE_ENV == "development")
-      console.log(this.testInputs) // eslint-disable-line
+      console.log(this.testInputs)
   },
 
   methods: {
@@ -291,20 +326,20 @@ export default {
       self.onmessage = e => { 
         postMessage(eval(e.data[0])); 
       }`
-      var blob = new Blob([workerScript], { type: 'application/javascript' }) // eslint-disable-line
+      var blob = new Blob([workerScript], { type: 'application/javascript' })
       var objectURL = URL.createObjectURL(blob)
 
-      var worker = new Worker(objectURL) // eslint-disable-line
+      var worker = new Worker(objectURL)
       worker.onmessage = event => {
         worker.terminate()
         URL.revokeObjectURL(objectURL)
-        //console.log(event.data) // eslint-disable-line
+        //console.log(event.data)
         callback(event.data, n)
       }
       worker.onerror = e => {
         worker.terminate()
         URL.revokeObjectURL(objectURL)
-        //console.error(`Error: Line ${e.lineno} in ${e.filename}: ${e.message}`) // eslint-disable-line
+        //console.error(`Error: Line ${e.lineno} in ${e.filename}: ${e.message}`)
         callback(`Error: Line ${e.lineno}: ${e.message}`, n)
       }
       worker.postMessage([code])
@@ -316,7 +351,7 @@ export default {
           var URL = window.URL || window.webkitURL
           URL.revokeObjectURL(objectURL)
           callback("Timed Out", n)
-          //console.log("Killed worker, timed out") // eslint-disable-line
+          //console.log("Killed worker, timed out")
         })
         .catch(() => {
           // worker has been cleaned
@@ -451,5 +486,8 @@ export default {
 }
 .max-height {
   height: 100%;
+}
+kbd {
+  margin: 1px;
 }
 </style>

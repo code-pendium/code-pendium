@@ -13,13 +13,26 @@ tags = [],
 difficulty = 0,
 
 description = 
-``,
+`<p>
+</p>`,
 
 inputFormat = 
-``,
+`<p>
+</p>
+<p>
+Example Input: <kbd></kbd>
+</p>`,
 
 outputFormat =
-``,
+`<p>
+</p>
+<p>
+Example Output: <kbd></kbd>
+</p>`,
+
+hint = 
+`<p>
+</p>`,
 
 defaultCode = 
 ``,
@@ -53,6 +66,7 @@ export default {
       description,
       inputFormat,
       outputFormat,
+      hint,
 
       defaultCode, 
       defaultInput,

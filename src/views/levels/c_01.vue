@@ -8,87 +8,69 @@
 import Level from "../../components/Level"
 
 const name = "C-01",
-title = "Introduction",
-tags = ["Basic", "Arithmetic"],
+title = "Operators",
+tags = ["Basic"],
 difficulty = 1,
 
 description = 
 `<p>
-Welcome to Codependium! This level aims to walk you through the basics of Codependium's level system, structure, and workflow. 
-In general, each level revolves around a problem that requires some code to be executed using a set of inputs. 
-You may choose to test your code by running it with the level's default testing input or by creating your own one. 
-Once you are satisfied with your code, you may choose to submit it. 
-Once submitted, your code will be tested against multiple different inputs. 
-If your code passes all these tests, you complete the level!
-Every level grants you a certain amount of stars <b>★</b> after completion, which is based on the level's difficulty. 
-These stars may range from <b>1★</b> being the lowest and easiest to <b>10★</b> being the highest and most difficult.
+In this problem, you will be making a simple function that adds two variables. We can achieve this by using <b>operators</b>. 
+The 4 most basic operators are addition<kbd>+</kbd>, subtraction<kbd>-</kbd>, multiplication<kbd>*</kbd>, and division<kbd>/</kbd>. 
+There is also the assigment operator <kbd>=</kbd> which we can use to assign values to a variable. 
+Combining all these, we can create a <b>statement</b>.
 </p>
 <p>
-Another thing to take note of is the Input Format and Output Format sections. 
-It is important that you read these sections for each level very carefully. 
-The Input Format section focuses on the general syntax for the input of each problem. 
-It will describe the arguments necessary for the input function in detail, including constraints if there are any. 
-As mentioned earlier, you may write your own inputs to test out your code. You may do this in the Run Input section. 
-A very important rule within this section is that <b>inputs are read line by line</b>. 
-This means every new line will be treated as another input. Inputs that take up more than one line will not work.
+Example:
 </p>
 <p>
-Now for the Output Format. It explains essentially the same things as the Input Format, but for the output instead. 
-This section details what exactly your code should return. 
-It is important to strictly follow the instructions stated in here, as it can affect your test results on submission. 
-The Run Output section displays the output of your code, based on each input stated in the Run Input section. 
-If you have multiple inputs then this section will output for each corresponding line. 
-But do take note that some problems might have an output comprising of multiple lines. Consider this when having multiple inputs.
+<kbd>var a = 1
+ var b = 2
+ var c = a + b</kbd>
 </p>
 <p>
-And finally, after all of that, here are the instructions for finishing this level!
-</p>
-<p>
-You will be making a simple function that does basic arithmetic between two numerical inputs. 
-The function must return a number by doing an operation between the two inputs. 
-The operation is based on the given type specified by the input.
+The variable <kbd>c</kbd> here becomes <kbd>3</kbd>
 </p>`,
 
 inputFormat =
 `<p>
-The input function <kbd>solve()</kbd> takes 3 arguments: <b>a</b>, <b>b</b>, and <b>type</b>. 
-The arguments <b>a</b> and <b>b</b> are both numbers. 
-The argument <b>type</b> is a string. 
-The 4 possible values for this argument are <b>add</b>, <b>subtract</b>, <b>multiply</b>, and <b>divide</b>.
+The input function <kbd>add()</kbd> takes 2 arguments: <kbd>a</kbd> and <kbd>b</kbd>. 
+The arguments are both numbers. 
 </p>
 <p>
-Example Input: <kbd>solve(1, 2, "add");</kbd>
+Example Input: <kbd>add(1, 2)</kbd>
 </p>`,
 
 outputFormat =
 `<p>
-The output of the function must be a number. Use the <kbd>return</kbd> statement.
+The output of the function must be a number.
 </p>
 <p>
 Example Output: <kbd>3</kbd>
 </p>`,
 
+hint = 
+`<p>
+You only need to assign a value to <kbd>result</kbd>. 
+The value should be the result of adding the arguments <kbd>a</kbd> and <kbd>b</kbd>.
+</p>`,
+
 defaultCode = 
-`function solve(a, b, type) {
-  // Your code here
+`function add(a, b) {
+  // Edit the line below
+  var result
+  return result
 }`,
 
 defaultInput = 
-`solve(1, 2, "add");`,
+`add(1, 2)`,
 
 testInputs = [null, null, null, null],
 
-inputFunction = `solve`,
+inputFunction = `add`,
 
-solution = (a, b, type) => {
-  if(type == "add") 
-    return a + b
-  if(type == "subtract") 
-    return a - b
-  if(type == "multiply") 
-    return a * b
-  if(type == "divide") 
-    return a / b
+solution = (a, b) => {
+  var result = a + b
+  return result
 },
 
 validator = (a, b) => {
@@ -97,13 +79,9 @@ validator = (a, b) => {
 
 import random from "random"
 
-function rnd() {
-  return random.int(-100, 100)
-}
-
 export default {
   components: {
-    Level
+    Level,
   },
 
   data: () => ({
@@ -116,6 +94,7 @@ export default {
       description,
       inputFormat,
       outputFormat,
+      hint,
 
       defaultCode, 
       defaultInput,
@@ -128,11 +107,8 @@ export default {
   }),
 
   mounted () {
-    var operations = ["add", "subtract", "multiply", "divide"]
-    for(var i in operations) {
-      var op = operations[i]
-      var a = rnd(), b = rnd()
-      this.properties.testInputs[i] = [a, b, op]
+    for(var i in this.properties.testInputs) {
+      this.properties.testInputs[i] = [random.int(0, 100), random.int(0, 100)]
     }
   }
 }

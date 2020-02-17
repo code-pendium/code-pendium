@@ -7,25 +7,24 @@
 <script>
 import Level from "../../components/Level"
 
-const name = "C-03",
+const name = "C-01",
 title = "Basic Calculator",
 tags = ["Basic", "Arithmetic"],
 difficulty = 1,
 
 description = 
 `<p>
-Now to combine the two things that you've learned so far! 
-In this problem you will be making a simple function that does basic arithmetic between two numerical inputs. 
+You will be making a simple function that does basic arithmetic between two numerical inputs. 
 The function must return a number by doing an operation between the two inputs. 
 The operation is based on the given type specified by the input.
 </p>`,
 
 inputFormat =
 `<p>
-The input function <kbd>solve()</kbd> takes 3 arguments: <kbd>a</kbd>, <kbd>b</kbd>, and <kbd>type</kbd>. 
-The arguments <kbd>a</kbd> and <kbd>b</kbd> are both numbers. 
-The argument <kbd>type</kbd> is a string. 
-The 4 possible values for this argument are <kbd>add</kbd>, <kbd>subtract</kbd>, <kbd>multiply</kbd>, and <kbd>divide</kbd>.
+The input function <kbd>solve()</kbd> takes 3 arguments: <b>a</b>, <b>b</b>, and <b>type</b>. 
+The arguments <b>a</b> and <b>b</b> are both numbers. 
+The argument <b>type</b> is a string. 
+The 4 possible values for this argument are <b>add</b>, <b>subtract</b>, <b>multiply</b>, and <b>divide</b>.
 </p>
 <p>
 Example Input: <kbd>solve(1, 2, "add");</kbd>
@@ -33,22 +32,10 @@ Example Input: <kbd>solve(1, 2, "add");</kbd>
 
 outputFormat =
 `<p>
-The output of the function must be a number.
+The output of the function must be a number. Use the <kbd>return</kbd> statement.
 </p>
 <p>
 Example Output: <kbd>3</kbd>
-</p>`,
-
-hint =
-`<p>
-Since there are <b>4 possible values</b> for the argument <kbd>type</kbd>, there should also be 4 different conditions for each one.
-</p>
-<p>
-Example:
-<br>
-<kbd>if(type == "add") { 
-   return a + b
- }</kbd>
 </p>`,
 
 defaultCode = 
@@ -57,7 +44,7 @@ defaultCode =
 }`,
 
 defaultInput = 
-`solve(1, 2, "add")`,
+`solve(1, 2, "add");`,
 
 testInputs = [null, null, null, null],
 
@@ -99,7 +86,6 @@ export default {
       description,
       inputFormat,
       outputFormat,
-      hint,
 
       defaultCode, 
       defaultInput,
