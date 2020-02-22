@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Level from "../../components/Level"
+import Level from "@/components/Level"
 
 const name = "C-03",
 title = "Basic Calculator",

@@ -59,7 +59,7 @@ export default {
   },
 
   data: () => ({
-    drawer: true,
+    drawer: false,
     updateKey: false
   }),
 
