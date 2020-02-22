@@ -9,7 +9,7 @@ import Level from "../../components/Level"
 
 const name = "C-00",
 title = "Introduction",
-tags = ["Basic"],
+tags = [],
 difficulty = 1,
 
 description = 
@@ -60,7 +60,7 @@ outputFormat =
 The output of the function is simply the given input.
 </p>
 <p>
-Example Output: <kbd>Hello World</kbd>
+Example Output: <kbd>"Hello World"</kbd>
 </p>`,
 
 hint = 

@@ -196,9 +196,11 @@
 
 <script>
 import { editor } from "monaco-editor"
+import jsonFormat from "json-format"
 
 export default {
   props: {
+    // Mandatory
     name: String,
     title: String,
     tags: Array,
@@ -215,7 +217,10 @@ export default {
     testInputs: Array,
     inputFunction: String,
     solution: Function,
-    validator: Function
+    validator: Function,
+
+    // Optional
+    precheck: Function
   },
 
   data: () => ({
@@ -321,6 +326,16 @@ export default {
 
   methods: {
     execute (callback, code, n) {
+      if(this.precheck) {
+        var check = this.precheck(code)
+        if(check != true) {
+          this.$nextTick(() => {
+            callback(check, n)
+          })
+          return
+        }
+      }
+
       var URL = window.URL || window.webkitURL
       var workerScript = `
       self.onmessage = e => { 
@@ -340,7 +355,7 @@ export default {
         worker.terminate()
         URL.revokeObjectURL(objectURL)
         //console.error(`Error: Line ${e.lineno} in ${e.filename}: ${e.message}`)
-        callback(`Error: Line ${e.lineno}: ${e.message}`, n)
+        callback(`Error at line ${e.lineno}: ${e.message}`, n)
       }
       worker.postMessage([code])
 
@@ -371,6 +386,9 @@ export default {
 
       this.execute((data, n) => {
         n = parseInt(n)
+        try {
+          data = jsonFormat(data)
+        } catch(e) {} // eslint-disable-line
         var last = n >= inputs.length - 1
         var nextln = last ? "" : "\n"
         this.output.setValue(this.output.getValue() + data + nextln)

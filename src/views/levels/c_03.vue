@@ -9,8 +9,8 @@ import Level from "../../components/Level"
 
 const name = "C-03",
 title = "Basic Calculator",
-tags = ["Basic", "Arithmetic"],
-difficulty = 1,
+tags = ["Basic", "Arithmetic", "Calculator"],
+difficulty = 3,
 
 description = 
 `<p>

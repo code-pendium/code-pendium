@@ -8,6 +8,9 @@ import c_00 from "../views/levels/c_00"
 import c_01 from "../views/levels/c_01"
 import c_02 from "../views/levels/c_02"
 import c_03 from "../views/levels/c_03"
+import c_04 from "../views/levels/c_04"
+import c_05 from "../views/levels/c_05"
+import c_06 from "../views/levels/c_06"
 
 Vue.use(Router)
 
@@ -58,6 +61,30 @@ var router = new Router({
       slug: "c_03",
       type: "level",
       component: c_03
+    },
+    {
+      path: "/c-04",
+      name: "C-04",
+      title: "Arrays",
+      slug: "c_04",
+      type: "level",
+      component: c_04
+    },
+    {
+      path: "/c-05",
+      name: "C-05",
+      title: "Looping",
+      slug: "c_05",
+      type: "level",
+      component: c_05
+    },
+    {
+      path: "/c-06",
+      name: "C-06",
+      title: "Step Calculator",
+      slug: "c_06",
+      type: "level",
+      component: c_06
     },
     { path: "*", redirect: "/home" }
   ]
