@@ -107,6 +107,9 @@ Example Output: <kbd>"Please help me "</kbd>
 
 hint = 
 `<p>
+This problem's solution is quite similar to the example code given in the description, 
+except that you have to use a space <kbd>" "</kbd> instead of a new line <kbd>"\\n"</kbd> character. 
+You also have to return the <kbd>text</kbd> variable at the very <b>end of the function</b>, not within the loop.
 </p>`,
 
 defaultCode = 

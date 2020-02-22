@@ -40,6 +40,34 @@ Example Output: <kbd>2</kbd>
 </p>
 </p>`,
 
+hint =
+`<p>
+This problem is all about modifying the <kbd>initial</kbd> variable with every "step" within the <kbd>steps</kbd> array, 
+and then finally returning it after all steps have been done. 
+Also note that every "step" is in an array format. You will notice that the <kbd>steps</kbd> array, contains arrays (the "steps"). 
+To access the value of an individual step, you may re-use the same format, like so:
+</p>
+<p>
+<kbd>for(var i = 0; i < steps.length; i++) { 
+   var number = steps[i][0]
+   var type = steps[i][1]
+ }</kbd>
+</p>
+<p>
+In here, we are trying to get the <kbd>number</kbd> value, which is the first <kbd>[0]</kbd> element on a "step" object. 
+We do this by first getting the specific step with <kbd>step[i]</kbd>, and then adding in the <kbd>[0]</kbd>. 
+The same can be done for the <kbd>type</kbd> variable, and since it is the second element, we use <kbd>[1]</kbd>.
+</p>
+<p>
+Alternatively, we can also do:
+</p>
+<kbd>var step = steps[i]
+ var number = step[0] 
+ var type = step[1] </kbd>
+</p>
+<p>A bit longer, but this format has better readability.
+</p>`,
+
 defaultCode = 
 `function calculate(initial, steps) {
   // Your code here
@@ -93,6 +121,7 @@ export default {
       description,
       inputFormat,
       outputFormat,
+      hint,
 
       defaultCode, 
       defaultInput,

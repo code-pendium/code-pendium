@@ -72,6 +72,9 @@ Example Output: <kbd>[1,4]</kbd>
 
 hint = 
 `<p>
+If you are having difficulty with returning the proper output, remember that it <b>has to be an array</b>, 
+containing the first and last element of the input array. 
+If you've set up those two as variables, you can simply do <kbd>return [first, last]</kbd>.
 </p>`,
 
 defaultCode = 
