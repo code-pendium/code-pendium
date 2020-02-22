@@ -18,9 +18,9 @@ export default new Vuex.Store({
   mutations: {
     saveData(state, data) {
       var level = state.levelData[data.level]
-      if (data.code)
+      if (data.code != undefined)
         level.code = data.code
-      if (data.input)
+      if (data.input != undefined)
         level.input = data.input
       if (data.testsPassed)
         level.testsPassed = data.testsPassed

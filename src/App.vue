@@ -15,12 +15,14 @@
               <v-list-item-subtitle>{{r.title}}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
-              <v-icon 
-                :key="updateKey"
-                v-if="($store.state.levelData[r.slug] && $store.state.levelData[r.slug].completed)">
-                mdi-check
-              </v-icon>
-            </v-list-item-action>
+              <v-scroll-x-transition>
+                <v-icon 
+                  :key="updateKey"
+                  v-if="($store.state.levelData[r.slug] && $store.state.levelData[r.slug].completed)">
+                  mdi-check
+                </v-icon>
+              </v-scroll-x-transition>
+            </v-list-item-action> 
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -42,6 +44,13 @@
       <v-scroll-y-transition mode="out-in">
         <router-view></router-view>
       </v-scroll-y-transition>
+      <v-fade-transition>
+        <v-btn light fab fixed bottom right
+          v-show="scrollFab"
+          @click="$vuetify.goTo(0)">
+          <v-icon>mdi-arrow-up</v-icon>
+        </v-btn>
+      </v-fade-transition>
     </v-content>
 
     <v-footer app>
@@ -54,13 +63,10 @@
 import router from "./plugins/router"
 
 export default {
-  props: {
-    source: String,
-  },
-
   data: () => ({
     drawer: false,
-    updateKey: false
+    scrollFab: false,
+    updateKey: false,
   }),
 
   computed: {
@@ -69,6 +75,7 @@ export default {
         return r.type == "level"
       })
     },
+
     navigationRoutes: () => {
       return router.options.routes.filter(r => {
         return r.type == "navigation"
@@ -76,14 +83,17 @@ export default {
     }
   },
 
-  watch: {
-    $store: function() {
-      console.log("Store Changed")
-    }
-  },
-
   mounted () {
+    if(window.innerWidth >= 1264)
+      this.drawer = true
+
+    window.onscroll = (e) => {
+      this.onscroll(e)
+    }
+    this.onscroll()
+
     setInterval(this.update, 1000)
+
     if(process.env.NODE_ENV != "development")
       console.log(
         "%cIf you can read this, you are cheating! Don't do it ;-;", 
@@ -93,15 +103,17 @@ export default {
   methods: {
     update () {
       this.$forceUpdate()
+    },
+
+    onscroll (e) {
+      var top = window.pageYOffset || e.target.scrollTop || 0
+      this.scrollFab = (top > 20)
     }
   }
 }
 </script>
 
 <style>
-body {
-  background-color: #303030;
-}
 .custom.char.typed {
   color: white;
 }

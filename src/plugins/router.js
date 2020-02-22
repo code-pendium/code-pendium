@@ -1,8 +1,8 @@
 import Vue from "vue"
 import Router from "vue-router"
 
-import Home from "../views/Home"
-import About from "../views/About"
+const Home  = () => import("../views/Home")
+const About = () => import("../views/About")
 
 const levels = [
   ["c_00", "Introduction"],
@@ -20,23 +20,23 @@ function load(component) {
 
 const routes = [
   {
-    path: "*",
-    redirect: "/home"
-  },
-  {
     path: "/home",
     name: "Home",
-    icon: "home",
+    icon: "mdi-home",
     type: "navigation",
     component: Home
   },
   {
     path: "/about",
     name: "About",
-    icon: "info",
+    icon: "mdi-information",
     type: "navigation",
     component: About
-  }
+  },
+  {
+    path: "*",
+    redirect: "/home"
+  },
 ]
 
 for (var i in levels) {

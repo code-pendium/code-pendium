@@ -38,6 +38,17 @@
           <v-card-text class="body-1">
             <span>{{levelStatus}}</span>
           </v-card-text>
+          <v-card-actions>
+            <v-btn small tile :to="previousLevel.path">
+              <v-icon left>mdi-chevron-left</v-icon>
+              {{previousLevel.name}}
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn small tile :to="nextLevel.path">
+              {{nextLevel.name}}
+              <v-icon right>mdi-chevron-right</v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -73,16 +84,17 @@
         <v-card>
           <v-card-title class="pa-3">
             <span class="subtitle-1">Code Editor</span>
-            <v-tooltip right>
+            <v-tooltip right transition="scroll-x-transition" mode="out-in">
               <template v-slot:activator="{on}">
                 <v-btn v-on="on" icon @click="hintDialog = true" :disabled="running">
-                  <v-icon>help</v-icon>
+                  <v-icon>mdi-help-circle</v-icon>
                 </v-btn>
               </template>
               <span>Hint</span>
             </v-tooltip>
             <v-spacer></v-spacer>
             <v-btn tile @click="run(0)" :loading="running" :disabled="running">Run</v-btn>
+            <v-divider vertical></v-divider>
             <v-btn tile @click="submit(0)" :disabled="running">Submit</v-btn>
           </v-card-title>
           <div id="code" class="editor"></div>
@@ -130,7 +142,7 @@
             </span>
           <v-spacer></v-spacer>
           <v-btn text icon :disabled="submitting" @click="hintDialog = false">
-            <v-icon>close</v-icon>
+            <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
@@ -152,7 +164,7 @@
           <span class="title">Submission</span>
           <v-spacer></v-spacer>
           <v-btn text icon :disabled="submitting" @click="submitDialog = false, submitResult = false">
-            <v-icon>close</v-icon>
+            <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
         <v-card-subtitle>
@@ -188,7 +200,9 @@
       :color="allTestsPassed ? 'success' : 'error'"
     >
       {{submitResultText}}
-      <v-btn text @click.native="submitResult = false">Close</v-btn>
+      <v-btn icon @click.native="submitResult = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </v-snackbar>
 
   </v-container>
@@ -240,6 +254,38 @@ export default {
   }),
 
   computed: {
+    levelRoutes: function() {
+      return this.$router.options.routes.filter(r => {
+        return r.type == "level"
+      })
+    },
+
+    currentLevelIndex: function() {
+      var routes = this.levelRoutes
+      var current = this.$router.currentRoute
+      for(var i in routes) {
+        if(routes[i].path == current.path)
+          return i
+      }
+      return -1
+    },
+
+    nextLevel: function() {
+      var routes = this.levelRoutes
+      var index = parseInt(this.currentLevelIndex)
+      if(index + 1 == routes.length)
+        return routes[index]
+      return routes[index + 1]
+    },
+
+    previousLevel: function() {
+      var routes = this.levelRoutes
+      var index = parseInt(this.currentLevelIndex)
+      if(index - 1 == -1)
+        return routes[index]
+      return routes[index - 1]
+    },
+
     slug: function() {
       return this.name.toLowerCase().replace("-", "_")
     },
@@ -286,10 +332,10 @@ export default {
     })
 
     var codeData = this.getData("code")
-    this.code.setValue(codeData.length < 2 ? this.defaultCode : codeData)
+    this.code.setValue(codeData.length == 0 ? this.defaultCode : codeData)
     
     this.code.onDidChangeModelContent(() => {
-      this.updateCode()
+      this.saveCode()
     })
 
     this.input = editor.create(document.getElementById("input"), {
@@ -303,10 +349,10 @@ export default {
     })
 
     var inputData = this.getData("input")
-    this.input.setValue(inputData.length < 2 ? this.defaultInput : inputData)
+    this.input.setValue(inputData.length == 0 ? this.defaultInput : inputData)
     
     this.input.onDidChangeModelContent(() => {
-      this.updateInput()
+      this.saveInput()
     })
 
     this.output = editor.create(document.getElementById("output"), {
@@ -322,6 +368,11 @@ export default {
 
     if(process.env.NODE_ENV == "development")
       console.log(this.testInputs)
+  },
+
+  beforeDestroy () {
+    this.saveCode()
+    this.saveInput()
   },
 
   methods: {
@@ -471,13 +522,13 @@ export default {
       this.levelStatus = status
     },
 
-    updateCode () {
+    saveCode () {
       this.saveData({
         code: this.code.getValue()
       })
     },
 
-    updateInput () {
+    saveInput () {
       this.saveData({
         input: this.input.getValue()
       })
