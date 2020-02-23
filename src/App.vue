@@ -3,6 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       app clipped
+      :mobile-break-point="breakpoint"
     >
       <v-list subheader dense>
         <v-subheader class="subtitle-1">Levels</v-subheader>
@@ -63,6 +64,7 @@ import router from "./plugins/router"
 
 export default {
   data: () => ({
+    breakpoint: 1350,
     drawer: false,
     scrollFab: false,
     updateKey: false,
@@ -83,7 +85,7 @@ export default {
   },
 
   mounted () {
-    if(window.innerWidth >= 1264)
+    if(window.innerWidth >= this.breakpoint)
       this.drawer = true
 
     window.onscroll = (e) => {
