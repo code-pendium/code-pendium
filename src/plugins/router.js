@@ -11,7 +11,8 @@ const levels = [
   ["c_03", "Basic Calculator"],
   ["c_04", "Arrays"],
   ["c_05", "Looping"],
-  ["c_06", "Step Calculator"]
+  ["c_06", "Step Calculator"],
+  ["c_x2", "Square"]
 ]
 
 function load(component) {
