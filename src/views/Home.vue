@@ -52,7 +52,10 @@
 
       <v-col cols="12">
         <v-row justify="center">
-          <v-btn tile color="primary" to="/c-00">Get Started</v-btn>
+          <!--<v-btn tile outlined class="startbtn" to="/c-00">Get Started</v-btn>-->
+          <a class="startbtn" href="/#/c-00">
+            <span>Get Started <v-icon>mdi-chevron-right</v-icon></span>
+          </a>
         </v-row>
       </v-col>
 
@@ -114,9 +117,82 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .home-editor {
   width: 40rem;
   height: 15rem;
+}
+
+$defaultColor: #2196F3;
+$hoverColor: #fff;
+
+.startbtn {
+  cursor: pointer;
+  background: $defaultColor;
+  position: relative;
+  padding: 0.5rem 1.25rem;
+  box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.34);
+  text-decoration: none;
+
+  span {
+    color: #fff;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    position: relative;
+    z-index: 1;
+    left: 0;
+  }
+
+  .v-icon {
+    margin-bottom: 2px;
+    position: relative;
+    width: 0;
+    left: -50%;
+    color: rgba(0, 0, 0, 0);
+    transition: 0.3s ease;
+  }
+
+  &:before, &:after {
+    content: "";
+    background: $hoverColor;
+    height: 50%;
+    width: 0;
+    position: absolute;
+    transition: 0.3s cubic-bezier(.785,.135,.15,.86);
+  }
+  &:before {
+    top: 0;
+    left: 0;
+    right: auto;
+  }
+  &:after {
+    bottom: 0;
+    right: 0;
+    left: auto;
+  }
+
+  &:hover {
+    &:before {
+      width: 100%;
+      right: 0;
+      left: auto;
+    }
+    &:after {
+      width: 100%;
+      left: 0;
+      right: auto;
+    }
+    span, .v-icon {
+      color: #000;
+    }
+    span {
+      left: -5%;
+    }
+    .v-icon {
+      left: 5%;
+    }
+  }
 }
 </style>

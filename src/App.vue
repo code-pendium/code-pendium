@@ -2,8 +2,7 @@
   <v-app id="code-compendium">
     <v-navigation-drawer
       v-model="drawer"
-      app
-      clipped
+      app clipped
     >
       <v-list subheader dense>
         <v-subheader class="subtitle-1">Levels</v-subheader>
@@ -122,5 +121,13 @@ export default {
 }
 #content .container {
   max-width: 1200px;
+}
+
+.v-application {
+  background-image: url("https://www.transparenttextures.com/patterns/always-grey.png") !important;
+}
+.v-navigation-drawer {
+  background-image: url("https://www.transparenttextures.com/patterns/crissxcross.png") !important;
+  background-repeat: repeat;
 }
 </style>
