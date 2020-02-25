@@ -1,8 +1,10 @@
 <template>
   <v-app id="code-compendium">
     <v-navigation-drawer
+      v-if="validRoute"
       v-model="drawer"
-      app clipped
+      app
+      clipped
       :mobile-break-point="breakpoint"
     >
       <v-list subheader dense>
@@ -29,6 +31,8 @@
     </v-navigation-drawer>
 
     <v-app-bar
+      v-if="validRoute"
+      v-model="appbar"
       app
       clipped-left
     >
@@ -53,45 +57,53 @@
       </v-fade-transition>
     </v-content>
 
-    <v-footer app>
+    <v-footer
+      v-if="validRoute"
+      app
+    >
       <span class="px-3">&copy;{{new Date().getFullYear()}}</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import router from "./plugins/router"
-
 export default {
   data: () => ({
     breakpoint: 1350,
     drawer: false,
+    appbar: true,
+    validRoute: false,
     scrollFab: false,
     updateKey: false,
   }),
 
   computed: {
-    levelRoutes: () => {
-      return router.options.routes.filter(r => {
+    levelRoutes: function() {
+      return this.$router.options.routes.filter(r => {
         return r.type == "level"
       })
     },
 
-    navigationRoutes: () => {
-      return router.options.routes.filter(r => {
+    navigationRoutes: function() {
+      return this.$router.options.routes.filter(r => {
         return r.type == "navigation"
       })
     }
   },
 
-  mounted () {
-    if(window.innerWidth >= this.breakpoint)
-      this.drawer = true
+  watch : {
+    $route(to) {
+      this.validateRoute(to)
+    }
+  },
 
+  mounted () {
     window.onscroll = (e) => {
       this.onscroll(e)
     }
     this.onscroll()
+
+    this.validateRoute(this.$router.currentRoute)
 
     setInterval(this.update, 1000)
 
@@ -109,6 +121,13 @@ export default {
     onscroll (e) {
       var top = window.pageYOffset || e.target.scrollTop || 0
       this.scrollFab = (top > 20)
+    },
+
+    validateRoute (route) {
+      if(window.innerWidth >= this.breakpoint)
+        this.drawer = true
+        
+      this.validRoute = route.name != undefined
     }
   }
 }

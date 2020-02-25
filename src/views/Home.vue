@@ -53,9 +53,9 @@
       <v-col cols="12">
         <v-row justify="center">
           <!--<v-btn tile outlined class="startbtn" to="/c-00">Get Started</v-btn>-->
-          <a class="startbtn" href="/#/c-00">
+          <router-link class="startbtn" to="/level/c-00">
             <span>Get Started <v-icon>mdi-chevron-right</v-icon></span>
-          </a>
+          </router-link>
         </v-row>
       </v-col>
 

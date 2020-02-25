@@ -1,8 +1,9 @@
 import Vue from "vue"
 import Router from "vue-router"
 
-const Home  = () => import("../views/Home")
-const About = () => import("../views/About")
+const Home  = () => import("@/views/Home")
+const About = () => import("@/views/About")
+const Page404 = () => import("@/views/404")
 
 const levels = [
   ["c_00", "Introduction"],
@@ -21,7 +22,11 @@ function load(component) {
 
 const routes = [
   {
-    path: "/home",
+    path: "*",
+    component: Page404
+  },
+  {
+    path: "/",
     name: "Home",
     icon: "mdi-home",
     type: "navigation",
@@ -34,10 +39,6 @@ const routes = [
     type: "navigation",
     component: About
   },
-  {
-    path: "*",
-    redirect: "/home"
-  },
 ]
 
 for (var i in levels) {
@@ -46,7 +47,7 @@ for (var i in levels) {
   var name = path.toUpperCase()
   var title = levels[i][1]
   var route = {
-    path: "/" + path,
+    path: "/level/" + path,
     name, slug, title,
     type: "level",
     component: load(slug)
@@ -55,4 +56,7 @@ for (var i in levels) {
 }
 
 Vue.use(Router)
-export default new Router({ routes })
+export default new Router({
+  mode: "history",
+  routes
+})
