@@ -1,5 +1,19 @@
 <template>
   <v-app id="code-compendium">
+    <v-app-bar
+      v-if="validRoute"
+      v-model="appbar"
+      app
+      clipped-left
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+      <v-toolbar-title>Codependium</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn text v-bind:key="r.name" v-for="r in navigationRoutes" :to="{path: r.path}">
+        <v-icon left>{{r.icon}}</v-icon>{{r.name}}
+      </v-btn>
+    </v-app-bar>
+
     <v-navigation-drawer
       v-if="validRoute"
       v-model="drawer"
@@ -30,20 +44,6 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      v-if="validRoute"
-      v-model="appbar"
-      app
-      clipped-left
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-      <v-toolbar-title>Codependium</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn text v-bind:key="r.name" v-for="r in navigationRoutes" :to="{path: r.path}">
-        <v-icon left>{{r.icon}}</v-icon>{{r.name}}
-      </v-btn>
-    </v-app-bar>
-
     <v-content id="content">
       <v-scroll-y-transition mode="out-in">
         <router-view></router-view>
@@ -61,7 +61,38 @@
       v-if="validRoute"
       app
     >
-      <span class="px-3">&copy;{{new Date().getFullYear()}}</span>
+      <!--<span class="px-3">&copy;{{new Date().getFullYear()}}</span>-->
+      <a
+        href="http://creativecommons.org/licenses/by-nc/4.0/"
+        target="_blank"
+      >
+        <v-avatar
+          size="24"
+          class="mr-1"
+        >
+          <v-img
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg"
+            alt="Creative Commons - Logo"
+          />
+        </v-avatar>
+        <v-avatar
+          size="24"
+          class="mr-1"
+        >
+          <v-img
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg"
+            alt="Creative Commons - BY"
+          />
+        </v-avatar>
+        <v-avatar
+          size="24"
+        >
+          <v-img
+            src="https://mirrors.creativecommons.org/presskit/icons/nc.svg"
+            alt="Creative Commons - Non-commercial"
+          />
+        </v-avatar>
+      </a>
     </v-footer>
   </v-app>
 </template>
@@ -140,11 +171,12 @@ export default {
 .custom.caret {
   display: none;
 }
+
 #content .container {
   max-width: 1200px;
 }
-
 .v-application {
+  min-width: 720px;
   background-image: url("https://www.transparenttextures.com/patterns/always-grey.png") !important;
 }
 .v-navigation-drawer {

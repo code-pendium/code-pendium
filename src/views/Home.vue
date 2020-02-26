@@ -4,7 +4,7 @@
 
       <v-col cols="12">
         <v-row justify="center">
-          <v-img src="../assets/logo.png" max-height="100" max-width="100" @load="imgLoaded = true">
+          <v-img alt="Codependium Logo" src="@/assets/logo.png" max-height="100" max-width="100" @load="imgLoaded = true">
             <v-skeleton-loader v-if="!imgLoaded" type="image">
             </v-skeleton-loader>
           </v-img>
@@ -31,7 +31,7 @@
       <v-col cols="12">
         <v-row justify="center">
           <span class="title font-weight-light">
-            A compendium of educational coding puzzles and problems for cognitive skill development
+            A compendium of educational coding problems for cognitive skill development
           </span>
         </v-row>
       </v-col>

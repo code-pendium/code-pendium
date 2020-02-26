@@ -3,7 +3,7 @@
     <vue-topprogress ref="topProgress"></vue-topprogress>
 
     <v-row dense>
-      <v-col cols="10">
+      <v-col lg="10" md="9" sm="9">
         <v-card>
           <v-card-title>
             <span class="display-1"><kbd>{{name}}</kbd></span>
@@ -26,7 +26,7 @@
         </v-card>
       </v-col>
       
-      <v-col cols="2">
+      <v-col lg="2" md="3" sm="3">
         <v-card>
           <v-card-title>
             <span class="display-1">{{difficulty}}★</span>
@@ -80,7 +80,7 @@
     </v-row>
 
     <v-row dense>
-      <v-col cols="8">
+      <v-col lg="8" md="7" sm="12">
         <v-card>
           <v-card-title class="pa-3">
             <span class="subtitle-1">Code Editor</span>
@@ -101,7 +101,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="4">
+      <v-col lg="4" md="5" sm="12">
         <v-container fluid fill-height>
           <v-row dense>
             <v-col>
