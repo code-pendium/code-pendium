@@ -106,7 +106,7 @@ export default {
       },
       {
         name: "Paul Tolentino",
-        username: "pending_username",
+        username: "1NV1D14",
         avatar: require("@/assets/avatars/avatar2.png"),
         tags: ["Researcher", "Writer", "Printer"]
       },
