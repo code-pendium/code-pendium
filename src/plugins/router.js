@@ -20,24 +20,35 @@ function load(component) {
   return () => import(`@/views/levels/${component}.vue`)
 }
 
+const suffix = " | Codependium"
+
 const routes = [
   {
     path: "*",
-    component: Page404
+    component: Page404,
+    meta: {
+      title: "404"
+    }
   },
   {
     path: "/",
     name: "Home",
     icon: "mdi-home",
     type: "navigation",
-    component: Home
+    component: Home,
+    meta: {
+      title: "Codependium"
+    }
   },
   {
     path: "/about",
     name: "About",
     icon: "mdi-information",
     type: "navigation",
-    component: About
+    component: About,
+    meta: {
+      title: "About" + suffix
+    }
   },
 ]
 
@@ -50,7 +61,10 @@ for (var i in levels) {
     path: "/level/" + path,
     name, slug, title,
     type: "level",
-    component: load(slug)
+    component: load(slug),
+    meta: {
+      title: name + suffix
+    }
   }
   routes.push(route)
 }
