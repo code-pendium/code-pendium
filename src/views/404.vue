@@ -25,7 +25,7 @@ export default {
 	background: 
     linear-gradient(rgba(10, 10, 10, 0.6), rgba(0, 0, 0, 0.9)), 
     repeating-linear-gradient(0, transparent, transparent 2px, black 3px, black 3px),
-    url("https://images.unsplash.com/photo-1437680041790-b7ed7b5a4950?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
+    url("~@/assets/backgrounds/404-bg.jpg");
 	background-size: cover;
 	background-position: center;
   font-family: "Montserrat", sans-serif;

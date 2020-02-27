@@ -71,7 +71,7 @@
           class="mr-1"
         >
           <v-img
-            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg"
+            src="@/assets/cc/cc.svg"
             alt="Creative Commons - Logo"
           />
         </v-avatar>
@@ -80,7 +80,7 @@
           class="mr-1"
         >
           <v-img
-            src="https://mirrors.creativecommons.org/presskit/icons/by.svg"
+            src="@/assets/cc/by.svg"
             alt="Creative Commons - BY"
           />
         </v-avatar>
@@ -88,7 +88,7 @@
           size="24"
         >
           <v-img
-            src="https://mirrors.creativecommons.org/presskit/icons/nc.svg"
+            src="@/assets/cc/nc.svg"
             alt="Creative Commons - Non-commercial"
           />
         </v-avatar>
@@ -164,23 +164,68 @@ export default {
 }
 </script>
 
-<style>
-.custom.char.typed {
-  color: white;
-}
-.custom.caret {
-  display: none;
+<style lang="scss">
+.custom {
+  &.char.typed {
+    color: white;
+  }
+
+  &.caret {
+    display: none;
+  }
 }
 
 #content .container {
   max-width: 1200px;
 }
+
 .v-application {
   min-width: 720px;
-  background-image: url("https://www.transparenttextures.com/patterns/always-grey.png") !important;
+  background-image: url("~@/assets/backgrounds/app-bg.png") !important;
 }
+
 .v-navigation-drawer {
-  background-image: url("https://www.transparenttextures.com/patterns/crissxcross.png") !important;
+  background-image: url("~@/assets/backgrounds/nav-bg.png") !important;
   background-repeat: repeat;
+}
+
+$font_path: "~@/assets/fonts/";
+$roboto_path: $font_path + "Roboto/Roboto-";
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 100;
+  src: url($roboto_path + "Thin.ttf");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url($roboto_path + "Light.ttf");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url($roboto_path + "Regular.ttf");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url($roboto_path + "Medium.ttf");
+}
+
+$montserrat_path: $font_path + "Montserrat/Montserrat-";
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 100;
+  src: url($montserrat_path + "Thin.ttf");
 }
 </style>

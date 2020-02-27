@@ -80,7 +80,7 @@
       <v-col cols="12">
         <v-row justify="center">
           <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">
-            <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+            <img alt="Creative Commons License" style="border-width:0" src="@/assets/cc/by-nc-4.0.png" />
           </a>
         </v-row>
         <v-row justify="center">
