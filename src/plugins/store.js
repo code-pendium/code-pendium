@@ -13,29 +13,35 @@ export default new Vuex.Store({
   state: {
     m: "If you can read this, you are cheating! Don't do it ;-;",
     version: "1.0",
-    levelData: {}
+    levelData: {},
+    levelInfo: {}
   },
   mutations: {
     saveData(state, data) {
       var level = state.levelData[data.level]
       if (data.code != undefined)
-        level.code = data.code
+        Vue.set(level, "code", data.code)
       if (data.input != undefined)
-        level.input = data.input
+        Vue.set(level, "input", data.input)
       if (data.testsPassed)
-        level.testsPassed = data.testsPassed
+        Vue.set(level, "testsPassed", data.testsPassed)
       if (data.completed)
-        level.completed = data.completed
+        Vue.set(level, "completed", data.completed)
     },
 
-    createLevelObj(state, level) {
-      state.levelData[level] = {
-        code: "",
-        input: "",
-        testsPassed: 0,
-        completed: false
+    createLevelData(state, data) {
+      if (!state.levelData[data.level]) {
+        Vue.set(state.levelData, data.level, {
+          code: "",
+          input: "",
+          testsPassed: 0,
+          completed: false
+        })
       }
-    }
+      Vue.set(state.levelInfo, data.level, {
+        difficulty: data.difficulty
+      })
+    },
   },
   plugins: [vuexLocal.plugin]
 })

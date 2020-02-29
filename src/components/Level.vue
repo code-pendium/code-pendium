@@ -249,8 +249,7 @@ export default {
     submitting: false,
     submitDialog: false,
     submitResult: false,
-    testResults: [],
-    levelStatus: ""
+    testResults: []
   }),
 
   computed: {
@@ -288,6 +287,9 @@ export default {
 
     slug: function() {
       return this.name.toLowerCase().replace("-", "_")
+      .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (char) => {
+        return "⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(char);
+      })
     },
 
     testsPassed: function() {
@@ -312,12 +314,27 @@ export default {
 
     allTestsPassed: function() {
       return this.testsPassed == this.testResults.length
+    },
+    
+    levelStatus: function() {
+      var passed = this.$store.state.levelData[this.slug].testsPassed
+      var tests = this.testInputs.length
+      var status = ""
+      if(!passed)
+        passed = 0
+      if(passed == tests && tests > 0)
+        status = "Completed"
+      else
+        status = `${passed}/${tests} Tests Passed`
+      return status
     }
   },
 
   created () {
-    if(!this.$store.state.levelData[this.slug])
-      this.$store.commit("createLevelObj", this.slug)
+    this.$store.commit("createLevelData", {
+      level: this.slug,
+      difficulty: this.difficulty
+    })
   },
 
   mounted () {
@@ -363,8 +380,6 @@ export default {
       },
       readOnly: true
     })
-
-    this.updateStatus()
 
     if(process.env.NODE_ENV == "development")
       console.log(this.testInputs)
@@ -493,7 +508,6 @@ export default {
               testsPassed: this.testsPassed,
               completed: this.allTestsPassed
             })
-            this.updateStatus()
           }
         }
       }, finalCode, n)
@@ -507,19 +521,6 @@ export default {
         this.$refs.topProgress.start()
       else
         this.$refs.topProgress.done()
-    },
-
-    updateStatus () {
-      var passed = this.$store.state.levelData[this.slug].testsPassed
-      var tests = this.testInputs.length
-      var status = ""
-      if(!passed)
-        passed = 0
-      if(passed == tests && tests > 0)
-        status = "Completed"
-      else
-        status = `${passed}/${tests} Tests Passed`
-      this.levelStatus = status
     },
 
     saveCode () {

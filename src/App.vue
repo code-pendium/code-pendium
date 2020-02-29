@@ -12,6 +12,58 @@
       <v-btn text v-bind:key="r.name" v-for="r in navigationRoutes" :to="{path: r.path}">
         <v-icon left>{{r.icon}}</v-icon>{{r.name}}
       </v-btn>
+      <v-divider vertical inset></v-divider>
+      <v-menu v-model="profile" bottom offset-y open-on-hover>
+        <template v-slot:activator="{on}">
+          <v-btn fab small v-on="on" class="ml-3">
+            <v-icon dark>mdi-account</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="title">Profile</span>
+          </v-card-title>
+          <v-card-subtitle>
+            <span class="subtitle-2">Progress</span>
+          </v-card-subtitle>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-row>
+              <v-col cols="4">
+                <v-progress-circular
+                  size="48"
+                  :value="levelProgress"
+                  class="headline">
+                  {{completedLevels}}
+                </v-progress-circular>
+              </v-col>
+              <v-col>
+                <span>
+                  Levels<br/>
+                  Completed
+                </span><br/>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="4">
+                <v-avatar
+                  size="48"
+                  color="#3B3B3B"
+                  class="headline"
+                >
+                  {{starsCollected}}
+                </v-avatar>
+              </v-col>
+              <v-col>
+                <span>
+                  ★ Stars<br/>
+                  Collected
+                </span><br/>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card> 
+      </v-menu>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -33,8 +85,7 @@
             <v-list-item-action>
               <v-scroll-x-transition>
                 <v-icon 
-                  :key="updateKey"
-                  v-if="($store.state.levelData[r.slug] && $store.state.levelData[r.slug].completed)">
+                  v-if="checkLevel(r.slug)">
                   mdi-check
                 </v-icon>
               </v-scroll-x-transition>
@@ -103,9 +154,11 @@ export default {
     breakpoint: 1350,
     drawer: false,
     appbar: true,
-    validRoute: false,
+    validRoute: true,
     scrollFab: false,
-    updateKey: false,
+    profile: null,
+
+    levelProgress: 0,
   }),
 
   computed: {
@@ -119,13 +172,53 @@ export default {
       return this.$router.options.routes.filter(r => {
         return r.type == "navigation"
       })
+    },
+
+    totalLevels: function() {
+      return this.levelRoutes.length
+    },
+
+    completedLevels: function() {
+      var levelData = this.$store.state.levelData
+      var keys = Object.keys(levelData)
+      var completed = 0
+      for(var i in keys) {
+        if(levelData[keys[i]].completed)
+          completed++
+      }
+      return completed
+    },
+
+    starsCollected: function() {
+      var levelData = this.$store.state.levelData
+      var levelInfo = this.$store.state.levelInfo
+      var keys = Object.keys(levelData)
+      var stars = 0
+      for(var i in keys) {
+        var level = levelData[keys[i]]
+        var info = levelInfo[keys[i]]
+        if(level.completed)
+          stars += parseInt(info.difficulty)
+      }
+      return stars
     }
   },
 
-  watch : {
+  watch: {
     $route(to) {
       this.validateRoute(to)
+    },
+
+    profile() {
+      setTimeout(function(t) {
+        t.levelProgress = t.profile ?
+        (t.completedLevels / t.totalLevels * 100) : 0
+      }, 100, this)
     }
+  },
+
+  beforeMount () {
+    this.validateRoute()
   },
 
   mounted () {
@@ -134,10 +227,6 @@ export default {
     }
     this.onscroll()
 
-    this.validateRoute(this.$router.currentRoute)
-
-    setInterval(this.update, 1000)
-
     if(process.env.NODE_ENV != "development")
       console.log(
         "%cIf you can read this, you are cheating! Don't do it ;-;", 
@@ -145,20 +234,21 @@ export default {
   },
 
   methods: {
-    update () {
-      this.$forceUpdate()
-    },
-
     onscroll (e) {
       var top = window.pageYOffset || e.target.scrollTop || 0
       this.scrollFab = (top > 20)
     },
 
-    validateRoute (route) {
+    validateRoute () {
       if(window.innerWidth >= this.breakpoint)
         this.drawer = true
         
-      this.validRoute = route.name != undefined
+      this.validRoute = this.$router.currentRoute.name != undefined
+    },
+
+    checkLevel (level) {
+      return (this.$store.state.levelData[level] 
+      && this.$store.state.levelData[level].completed)
     }
   }
 }
