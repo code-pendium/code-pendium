@@ -9,17 +9,21 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
       <v-toolbar-title>Codependium</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text v-bind:key="r.name" v-for="r in navigationRoutes" :to="{path: r.path}">
+      <v-btn text tile v-bind:key="r.name" v-for="r in navigationRoutes" :to="{path: r.path}">
         <v-icon left>{{r.icon}}</v-icon>{{r.name}}
       </v-btn>
       <v-divider vertical inset></v-divider>
-      <v-menu v-model="profile" bottom offset-y open-on-hover>
+      <v-menu 
+      bottom 
+      offset-y
+      transition="scroll-y-transition"
+      v-model="profile">
         <template v-slot:activator="{on}">
-          <v-btn fab small v-on="on" class="ml-3">
+          <v-btn fab small class="ml-3" v-on="on">
             <v-icon dark>mdi-account</v-icon>
           </v-btn>
         </template>
-        <v-card>
+        <v-card class="profile-menu">
           <v-card-title>
             <span class="title">Profile</span>
           </v-card-title>
@@ -48,7 +52,7 @@
               <v-col cols="4">
                 <v-avatar
                   size="48"
-                  color="#3B3B3B"
+                  color="rgba(0, 0, 0, 0.1)"
                   class="headline"
                 >
                   {{starsCollected}}
@@ -272,11 +276,25 @@ export default {
 .v-application {
   min-width: 720px;
   background-image: url("~@/assets/backgrounds/app-bg.png") !important;
+  background-attachment: fixed !important;
 }
 
 .v-navigation-drawer {
   background-image: url("~@/assets/backgrounds/nav-bg.png") !important;
   background-repeat: repeat;
+}
+
+.profile-menu {
+  background:
+    linear-gradient(rgb(66, 66, 66, 0.5)),
+    url("~@/assets/backgrounds/profile-bg.png");
+  background-repeat: repeat;
+  animation: profile-menu-scroll 20s infinite linear;
+}
+
+@keyframes profile-menu-scroll {
+  from { background-position-y: 412px }
+  to { background-position-y: 0 }
 }
 
 $font_path: "~@/assets/fonts/";
