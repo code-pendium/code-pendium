@@ -407,7 +407,7 @@ export default {
       self.onmessage = e => { 
         postMessage(eval(e.data[0])); 
       }`
-      var blob = new Blob([workerScript], { type: 'application/javascript' })
+      var blob = new Blob([workerScript], { type: "application/javascript" })
       var objectURL = URL.createObjectURL(blob)
 
       var worker = new Worker(objectURL)
@@ -453,7 +453,10 @@ export default {
       this.execute((data, n) => {
         n = parseInt(n)
         try {
-          data = jsonFormat(data)
+          var dataJson = jsonFormat(data).replace(/\\n/g, "\n")
+          if(typeof data == "string" && data.includes("\n"))
+            dataJson = dataJson.substr(1, dataJson.length - 2)
+          data = dataJson
         } catch(e) {} // eslint-disable-line
         var last = n >= inputs.length - 1
         var nextln = last ? "" : "\n"
