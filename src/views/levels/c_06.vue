@@ -94,10 +94,6 @@ solution = (initial, steps) => {
       initial /= n
   }
   return initial
-},
-
-validator = (a, b) => {
-  return a == b
 }
 
 import random from "random"
@@ -128,8 +124,7 @@ export default {
 
       testInputs,
       inputFunction,
-      solution,
-      validator
+      solution
     }
   }),
 

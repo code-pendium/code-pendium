@@ -72,10 +72,6 @@ solution = (a, b, type) => {
     return a * b
   if(type == "divide") 
     return a / b
-},
-
-validator = (a, b) => {
- return a == b
 }
 
 import random from "random"
@@ -106,8 +102,7 @@ export default {
 
       testInputs,
       inputFunction,
-      solution,
-      validator
+      solution
     }
   }),
 

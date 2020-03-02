@@ -82,10 +82,6 @@ solution = (size, filled) => {
     squareStr += row
   }
   return squareStr
-},
-
-validator = (a, b) => {
- return a == b
 }
 
 import random from "random"
@@ -111,8 +107,7 @@ export default {
 
       testInputs,
       inputFunction,
-      solution,
-      validator
+      solution
     }
   }),
 

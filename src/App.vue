@@ -19,7 +19,7 @@
       transition="scroll-y-transition"
       v-model="profile">
         <template v-slot:activator="{on}">
-          <v-btn fab small class="ml-3" v-on="on">
+          <v-btn light fab small class="ml-3" v-on="on">
             <v-icon dark>mdi-account</v-icon>
           </v-btn>
         </template>
@@ -43,7 +43,7 @@
               </v-col>
               <v-col>
                 <span>
-                  Levels<br/>
+                  ● Levels<br/>
                   Completed
                 </span><br/>
               </v-col>

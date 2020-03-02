@@ -87,10 +87,6 @@ solution = (food) => {
   } else {
     return false
   }
-},
-
-validator = (a, b) => {
-  return a == b
 }
 
 import random from "random"
@@ -117,8 +113,7 @@ export default {
 
       testInputs,
       inputFunction,
-      solution,
-      validator
+      solution
     }
   }),
 

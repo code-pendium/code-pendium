@@ -1,7 +1,8 @@
 import Vue from "vue"
 import Router from "vue-router"
 
-const Home  = () => import("@/views/Home")
+const Home = () => import("@/views/Home")
+const Sandbox = () => import("@/views/Sandbox")
 const About = () => import("@/views/About")
 const Page404 = () => import("@/views/404")
 
@@ -38,6 +39,16 @@ const routes = [
     component: Home,
     meta: {
       title: "Codependium"
+    }
+  },
+  {
+    path: "/level/snd-bx",
+    name: "Sandbox",
+    icon: "mdi-cube-outline",
+    type: "navigation",
+    component: Sandbox,
+    meta: {
+      title: "Sandbox" + suffix
     }
   },
   {

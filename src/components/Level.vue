@@ -2,9 +2,14 @@
   <v-container id="level" fluid class="px-5">
     <vue-topprogress ref="topProgress"></vue-topprogress>
 
-    <v-row dense>
-      <v-col lg="10" md="9" sm="9">
-        <v-card>
+    <v-row dense 
+      :justify="sandbox ? 'center' : 'start'"
+      :class="sandbox ? 'mb-3' : ''">
+      <v-col 
+        :lg="sandbox ? 'auto' : 10" 
+        :md="sandbox ? 'auto' : 9" 
+        :sm="sandbox ? 'auto' : 9">
+        <v-card :ripple="sandbox">
           <v-card-title>
             <span class="display-1"><kbd>{{name}}</kbd></span>
             <v-spacer></v-spacer>
@@ -15,6 +20,9 @@
             >
               {{t}}
             </v-chip>
+            <v-avatar color="grey darken-2" size="36" v-if="sandbox">
+              <v-icon>mdi-cube-outline</v-icon>
+            </v-avatar>
           </v-card-title>
           <v-card-subtitle>
             <span class="title">{{title}}</span>
@@ -26,7 +34,7 @@
         </v-card>
       </v-col>
       
-      <v-col lg="2" md="3" sm="3">
+      <v-col lg="2" md="3" sm="3" v-if="!sandbox">
         <v-card>
           <v-card-title>
             <span class="display-1">{{difficulty}}★</span>
@@ -53,7 +61,7 @@
       </v-col>
     </v-row>
 
-    <v-row dense>
+    <v-row dense v-if="!sandbox">
       <v-col cols="6">
         <v-card class="max-height">
           <v-card-title class="pa-3">
@@ -84,7 +92,7 @@
         <v-card>
           <v-card-title class="pa-3">
             <span class="subtitle-1">Code Editor</span>
-            <v-tooltip right transition="scroll-x-transition" mode="out-in">
+            <v-tooltip right transition="scroll-x-transition" mode="out-in" v-if="!sandbox">
               <template v-slot:activator="{on}">
                 <v-btn v-on="on" icon @click="hintDialog = true" :disabled="running">
                   <v-icon>mdi-help-circle</v-icon>
@@ -93,9 +101,15 @@
               <span>Hint</span>
             </v-tooltip>
             <v-spacer></v-spacer>
-            <v-btn tile @click="run(0)" :loading="running" :disabled="running">Run</v-btn>
-            <v-divider vertical></v-divider>
-            <v-btn tile @click="submit(0)" :disabled="running">Submit</v-btn>
+            <v-btn tile @click="run(0)" :loading="running" :disabled="running">
+              <v-icon left>mdi-play-circle-outline</v-icon>
+              Run
+            </v-btn>
+            <v-divider vertical v-if="!sandbox"></v-divider>
+            <v-btn tile @click="submit(0)" :disabled="running" v-if="!sandbox">
+              <v-icon left>mdi-cube-send</v-icon>
+              Submit
+            </v-btn>
           </v-card-title>
           <div id="code" class="editor"></div>
         </v-card>
@@ -133,6 +147,7 @@
       persistent
       max-width="500px"
       transition="dialog-transition"
+      v-if="!sandbox"
     >
       <v-card>
         <v-card-title>
@@ -158,6 +173,7 @@
       persistent
       max-width="500px"
       transition="dialog-transition"
+      v-if="!sandbox"
     >
       <v-card :loading="submitting">
         <v-card-title>
@@ -198,6 +214,7 @@
     <v-snackbar
       v-model="submitResult"
       :color="allTestsPassed ? 'success' : 'error'"
+      v-if="!sandbox"
     >
       {{submitResultText}}
       <v-btn icon @click.native="submitResult = false">
@@ -231,10 +248,19 @@ export default {
     testInputs: Array,
     inputFunction: String,
     solution: Function,
-    validator: Function,
 
     // Optional
-    precheck: Function
+    validator: {
+      type: Function,
+      default: function(a, b) {
+        return a === b
+      }
+    },
+    precheck: Function,
+    sandbox: {
+      type: Boolean,
+      default: false
+    }
   },
 
   data: () => ({

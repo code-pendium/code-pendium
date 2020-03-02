@@ -71,10 +71,6 @@ inputFunction = `add`,
 solution = (a, b) => {
   var result = a + b
   return result
-},
-
-validator = (a, b) => {
- return a == b
 }
 
 import random from "random"
@@ -101,8 +97,7 @@ export default {
 
       testInputs,
       inputFunction,
-      solution,
-      validator
+      solution
     }
   }),
 
