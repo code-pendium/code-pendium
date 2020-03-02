@@ -53,6 +53,13 @@ Example Output:
 </p>
 </p>`,
 
+hint =
+`<p>
+Since we are building a square, we need a way of building every block <kbd>⬜</kbd> and setting them up in a row, 
+and then repeating that process for all the rows. We can accomplish this by creating <b> a loop inside another loop</b>. 
+The loop inside will type out each block for a row, and the outer loop will be responsilble for repeating that loop for every other row.
+</p>`,
+
 defaultCode = 
 `function square(size, filled) {
   // Your code here
@@ -101,6 +108,7 @@ export default {
       description,
       inputFormat,
       outputFormat,
+      hint,
 
       defaultCode, 
       defaultInput,
