@@ -480,7 +480,7 @@ export default {
         n = parseInt(n)
         try {
           var dataJson = jsonFormat(data).replace(/\\n/g, "\n")
-          if(typeof data == "string" && data.includes("\n"))
+          if(typeof data == "string")
             dataJson = dataJson.substr(1, dataJson.length - 2)
           data = dataJson
         } catch(e) {} // eslint-disable-line

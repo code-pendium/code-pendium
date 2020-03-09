@@ -31,7 +31,7 @@
       <v-col cols="12">
         <v-row justify="center">
           <span class="title font-weight-light">
-            A compendium of educational coding problems for cognitive skill development
+            A compendium of educational coding problems for programming skill development
           </span>
         </v-row>
       </v-col>

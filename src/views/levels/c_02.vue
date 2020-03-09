@@ -29,8 +29,8 @@ In this problem, you will be making a function that returns something based on t
 The conditions to be followed are:
 </p>
 <ul>
-<li>If <kbd>food</kbd> is <kbd>"Apple"</kbd>, it should return <kbd>"Pie!"</kbd>.</li> 
-<li>If <kbd>food</kbd> is <kbd>"Orange"</kbd>, it should return <kbd>"Juice!"</kbd>.</li>
+<li>If <kbd>food</kbd> is <kbd>Apple</kbd>, it should return <kbd>Pie!</kbd>.</li> 
+<li>If <kbd>food</kbd> is <kbd>Orange</kbd>, it should return <kbd>Juice!</kbd>.</li>
 <li>If it is neither of those, it should simply return <kbd>false</kbd> (as a boolean, not a string).</li>
 </ul>`,
 
@@ -47,7 +47,7 @@ outputFormat =
 The output is also a string, except when all the conditions fail. In that casem return <kbd>false</kbd>.
 </p>
 <p>
-Example Output: <kbd>"Pie!"</kbd>
+Example Output: <kbd>Pie!</kbd>
 </p>`,
 
 hint = 

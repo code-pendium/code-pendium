@@ -60,7 +60,7 @@ outputFormat =
 The output of the function is simply the given input.
 </p>
 <p>
-Example Output: <kbd>"Hello World"</kbd>
+Example Output: <kbd>Hello World</kbd>
 </p>`,
 
 hint = 
